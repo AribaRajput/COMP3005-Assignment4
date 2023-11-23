@@ -1,0 +1,40 @@
+<h1>Welcome to the Assignment 4 App</h1>
+
+<h2>Get all student</h2>
+<p><%= link_to 'getAllStudents()', '/students/getAllStudents' %></p>
+
+
+
+<h2>Add Student</h2>
+<%= form_with model: Student.new, url: students_addStudent_path, method: :post, local: true do |form| %>    
+    <%= form.label :first_name, "First name" %>
+    <%= form.text_field :first_name %>
+  
+    <%= form.label :last_name, "Last name" %>
+    <%= form.text_field :last_name %>
+  
+    <%= form.label :email, "Email" %>
+    <%= form.text_field :email %>
+      
+    <%= form.label :enrollment_date, "Enrollment date" %>
+    <%= form.date_field :enrollment_date %>
+  <%= form.submit  "Add Student" %>
+<% end %>
+
+<h2>Update Student</h2>
+<%= form_with model: Student.new, url: students_updateStudentEmail_path, method: :post, local: true do |form| %>    
+    <%= form.label :student_id, "Student id" %>
+    <%= form.number_field :student_id %>
+  
+    <%= form.label :email, "New Email" %>
+    <%= form.text_field :email %>
+      
+  <%= form.submit  "Update Student" %>
+<% end %>
+
+<h2>Delete Student</h2>
+<%= form_with model: Student.new, url: students_deleteStudent_path, method: :post, local: true do |form| %>    
+    <%= form.label :student_id, "Student id" %>
+    <%= form.number_field :student_id %>
+  <%= form.submit  "Delete Student" %>
+<% end %>
