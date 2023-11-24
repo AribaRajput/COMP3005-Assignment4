@@ -1,6 +1,8 @@
 # COMP3005-Assignment4
 Repository for Assignment 4, Ariba Rajput, 101228808
 
+VIDEO LINK: https://youtu.be/qSuEtDqtuF4 
+
 This is a rails app that implements the Students database for Assignment 4, 3005. 
 
 Database creation:
