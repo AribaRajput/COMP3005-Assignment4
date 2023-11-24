@@ -14,17 +14,9 @@ class StudentsController < ApplicationController
         emailTaken = Student.find_by(email: params[:student][:email])
         errors = []
         
-        if emailTaken || params[:student][:email].empty?
-            errors <<  "The email is already taken or empty"
+        if emailTaken
+            errors <<  "The email is already taken"
         end
-
-        if params[:student][:first_name].empty? 
-            errors << "First name cannot be null"
-        end
-
-        if params[:student][:last_name].empty?
-            errors << "Last name cannot be null"
-        end 
 
         @student = Student.new(student_params)
         unless @student.save
@@ -40,22 +32,22 @@ class StudentsController < ApplicationController
 
     # Update a students email given student_id and uniqueness
     def updateStudentEmail
-        @student = Student.find_by(params[:student][:student_id])
+        @student = Student.find_by(student_id: params[:student][:student_id])  
         emailTaken = Student.find_by(email: params[:student][:email])
         errors = []
 
-        if params[:student][:email].empty? || emailTaken 
-            errors <<  "The email is empty or taken"
+        if emailTaken 
+            errors <<  "The email is taken"
         end
         
-        if params[:student][:student_id].nil? || !params[:student][:student_id].is_a?(Integer) 
+        if @student.nil?
             errors <<  "Student id is not valid"
-        end
+        else 
+            @student.update(email: params[:student][:email])
 
-        @student.update(email: params[:student][:email])
-
-        unless @student.save
-            errors << @student.errors.full_messages
+            unless @student.save
+                errors << @student.errors.full_messages
+            end
         end
         
         if errors.any?
@@ -70,7 +62,7 @@ class StudentsController < ApplicationController
         @student = Student.find_by(student_id: params[:student][:student_id])  
         errors = []
 
-        if params[:student][:student_id].empty? 
+        if @student.nil?
             errors <<  "Student id is not valid"
         else 
             @student.destroy
