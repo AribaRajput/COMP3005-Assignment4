@@ -11,13 +11,8 @@ class StudentsController < ApplicationController
 
     # Add a student
     def addStudent
-        emailTaken = Student.find_by(email: params[:student][:email])
         errors = []
-        
-        if emailTaken
-            errors <<  "The email is already taken"
-        end
-
+    
         @student = Student.new(student_params)
         unless @student.save
             errors << @student.errors.full_messages
